@@ -1,0 +1,48 @@
+ERSS HW1 Django Web-App
+
+Author 1: Yijia Li(yl730)
+Author 2: Jingjing Xv(jx99)
+
+Danger Log
+
+
+1/26
+We design basic structure of model, implement it and construt a simple login and logout page
+
+1/28 
+Start with home page, we list several options that can be done in this app.And then we improve our original model, try to design and implement request-ride functionality and design corresponding html document. 
+
+1/30
+Design ride imformation page. Based on different ride status, there are different ways to show off ride. For example, open ride can be modified, so it should be shown as a form. In other case, it will be a list.
+
+1.30
+We have completed login and register page at first. We only checked whether username and password satisfy the requirement of length, if email’s format is correct, and realize that the unique of username and email is required. Hence, we write some functions to check the unique  of username and email.
+
+2/2
+Design share-ride functionality. We use filter and exclude filter to get rides we want. When trying to filter rides with early and late time, I find my seperate date field and time field are very hard to compare. So I combine the two fields into ont date_time field.
+2.2
+As a driver, when searching ride, we forget to exclude one situation that the owner of the ride is exactly the driver. 
+
+2/3
+We find that we show off ride information, the date_time field won't display sometimes. I realize that it need to do type convertion. So I add two function strptime() and strftime() to convert data to the same type.
+
+2/4
+I add select-ride functionality. And I find that several error cases should be handled. For example, the arrival time of a new requested ride can't be earlier the current time. So we add a function to check this problem.
+Also we realize that the same type of vehicle should have the same max number of passengers, while originally in my model, this field can be changed arbitrarily by users. So we value this field according to its vehicle type and also add a new field "vehicle_capacity" to ride model.
+
+2.5
+Since, the driver can edit his information about vehicle. Before, we just delete data in database and then create a new data when the driver edit his information. However, since in this way, the vehicle id will change, which will exert negative influence on Ride table, since it record some information about  the vehicle information of rides. Hence, we decide to update related data when drivers edit information, thus the vehicle id will not change.
+
+
+2/7
+We find that the special information of ride should be required in html, so we modify it.
+2.7
+At first, we forgot one thing that the driver must register firstly before search rides. Hence, when users go to the register as a driver page, he or she is required to register their  vehicle information at first if they did not  register before. And then the driver can go to the driver homepage, and search rides.
+
+2.8
+We think about where to input ifDriver information. And what if I edit it to false.  After  discussing, we decide to when users fill in the vehicle information, he is also required to fill in if he is a driver. If the answer is false, he will not allowed to search rides, he will return to the user homepage.
+What’s more, if a driver used to be a driver, and then choose to not be a driver any more. We also need to delete data about his vehicle.
+
+2.10
+We used to think that a driver can only confirm one order, which means he will not allowed to confirm another order until he finishes this one. However, we realize that we had misunderstood the requirement. And then we designed a page which can display all not only complete rides, but also confirm rides. Hence, drivers can continue to search rides and select rides although  he has confirmed before.
+

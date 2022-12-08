@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>{%block title %}{% endblock %}</title>
+
+    {% block headerjs %}
+    {% endblock %}
+</head>
+<body>
+
+    <div clas="head">
+        <div class="head-in">
+            <ul class="options">
+                <div class="register"><a
+                        href=" /users/register">SignUp</a></div>
+                <div class="sign"><a
+                        href="/users/login">SignIn</a></div>
+
+            </ul>
+
+
+        </div>
+    </div>
+
+    <div>
+    </div>
+    {% block main %}
+    {% endblock %}
+    {% block footerjs %}
+    {% endblock %}
+
+</body>
+</html>

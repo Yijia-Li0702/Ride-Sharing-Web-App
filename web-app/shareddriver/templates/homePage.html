@@ -1,0 +1,14 @@
+<h1>What do you want?</h1>
+
+
+    <ul>
+        <li><a href="{% url 'shareddriver:requestRide' user_id%}"> request a ride</a></li>
+        <li><a href="{% url 'shareddriver:driverReg' user_id%}"> register as a driver</a></li>
+        <li><a href="{% url 'shareddriver:shareRide' user_id%}"> share ride</a></li>
+        <li><a href="{% url 'shareddriver:selectRides' user_id%}"> select my rides</a></li>
+        
+        <li><a href="/users/{{user_id}}/userInfo/"> UserInfo </a></li>
+        <li><a href="/users/logout/"> Logout </a></li>
+        
+       
+    </ul>

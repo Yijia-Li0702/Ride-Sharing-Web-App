@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% block title %}SignUp{% endblock %}
+
+{% block headerjs %}
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+{% endblock %}
+
+
+{% block main %}
+    <div class="login-body">
+        <div class="login-card">
+            <div class="login-top">
+                <h3>Sign Up for New Users</h3>
+                <h5>Welcome to use SharingRide!</h5>
+            </div>
+
+            <style>
+                .redSpan{
+                    color : red;
+                }
+                .greenSpan{
+                    color : green;
+                }
+            </style>
+
+            <div class="login-bottom">
+                <form method="post" action="register/" onsubmit="return register();">
+                    <div class="login-input-box">
+                        {% csrf_token %}
+                        <p>
+                            <label for="ua">Username: </label> <input type="text" id="username" name="username" value="" onblur="checkUsername(this.value)"
+                               class="login-admin active"><span id="aSpan"></span>
+                        </p>
+
+                        <p>
+                            <label for="up">PassWord: </label> <input type="password" id="pwd" name="pwd" value="" class="login-password"><span style=" color:red;" id="pSpan"></span>
+                        </p>
+
+                        <p>
+                            <label for="ue">Email: </label> <input type="text" id="email" name="email" value="" onblur="checkEmail(this.value)"> <span style=" color:red;" id="eSpan"></span>
+                        </p>
+
+                        <p>
+                            &emsp;&emsp;&emsp;&emsp;<button class="login-btn" style="color:pink;text-decoration:none;cursor:pointer">SignUp</button>
+                        </p>
+                            
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footerjs %}
+<script>
+
+
+    
+
+   /*
+    function register(){
+        //used to get the value input
+        var account = $('#username').val();
+        var password = $('#pwd').val();
+        
+        var email = $('#email').val();
+
+        //check the valid of signup
+        if(account.length<4||checkUsername(account)){
+            $('#aSpan').text('The Username is Invalid!');
+            return false;
+        }
+
+        if(password.length<4){
+            $('#pSpan').text('The length of password must larger than 4!');
+            return false;
+        }
+        
+        if(checkEmail(email)){
+            $('#eSpan').text('The email is Invalid!');
+            return false;
+        }
+       
+        return true;
+        
+
+        
+    }
+*/
+
+
+    function checkEmail(email){
+        var email = $('#email').val();
+        var here=false;
+        var reg = /^[a-zA-Z0-9_-]{6,}@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+         check = reg.test(email);
+         if(!check){
+           $('#eSpan').html('The email format is Invalid');
+           $('#eSpan').css('color', 'red');
+              here=true;
+
+        }else{
+            //unique
+                $.get('/users/only/', {'email':email}, function (result){
+                    //alert(typeof result.flag);
+                    r = result.flag;
+                //according to the response of server, update form
+                    if(r){
+                        $('#eSpan').html('The Email has already Existed!!');
+                        $('#eSpan').css('color', 'red');
+                        here=true;
+                    }else{
+                        $('#eSpan').html('~');
+                        $('#eSpan').css('color', 'green');
+                    }
+                })
+
+
+     }
+    //check unique
+    return here;
+
+}
+
+    function checkUsername(username){
+        //get the value of the form
+        var username = $('#username').val();
+
+        var uflag = false;
+        //judge
+        if(username.length ==0){
+            $('#aSpan').html('*');
+            $('#aSpan').css('color', 'red');
+            uflag=true;
+
+        }else {
+            /*
+            $.ajax({
+                url:'/users/isExist/',
+                type: 'GET',
+                async:false,
+                data:{'username': username},
+                success : function(result){
+                    var uflag = result.flag;
+                    if(uflag){
+                        flag=true;
+                        $('#aSpan').html('The username has already Existed!!');
+                        $('#aSpan').css('color', 'red');
+                        
+                    }
+                }
+                
+                
+            });*/
+            
+            $.get('/users/isExist/', {'username':username}, function (result){
+                //alert(typeof result.flag);
+                r = result.flag;
+                //according to the response of server, update form
+                if(r){
+                    $('#aSpan').html('The username has already Existed!!');
+                    $('#aSpan').css('color', 'red');
+                    uflag=true;
+                }else{
+                    $('#aSpan').html('~');
+                    $('#aSpan').css('color', 'green');
+                    
+                }
+            })
+        }
+        return uflag;
+    }
+
+
+    function register(){
+        //used to get the value input
+        var account = $('#username').val();
+        var password = $('#pwd').val();
+    
+        var email = $('#email').val();
+
+        //check the valid of signup
+        if(account.length<4||checkUsername(account)){
+            $('#aSpan').text('The Username is Invalid!');
+            return false;
+        }
+
+        if(password.length<4){
+            $('#pSpan').text('The length of password must larger than 4!');
+            return false;
+        }
+    
+        if(checkEmail(email)){
+            $('#eSpan').text('The email is Invalid!');
+            return false;
+        }
+   
+        return true;
+    
+
+    
+}
+
+
+
+</script>
+{% endblock %}

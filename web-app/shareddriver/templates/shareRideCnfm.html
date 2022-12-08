@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <title><h1>This is your ride information</h1></title>
+</head>
+<body>
+  {% if ride.status == "open" and ride.editable %}
+<form action="{% url 'shareddriver:ride_infm' user.id ride_id %}" method="post" class="form-horizontal" role="form">
+  {% csrf_token %}
+  <div class="form-group">
+    Vehicle Type:  {{ ride.vehicle_type}}
+    <select name="vehicle_type" required>
+      <option value="{{ ride.vehicle_type}}">{{ ride.vehicle_type}}</option>
+      <option value="X">X</option>
+      <option value="XL">XL</option>
+      <option value="vip">vip</option>
+      <option value="vvip">vvip</option>
+    </select>
+  </div>
+  <div class="form-group">
+    Destination: <input type="text" name="destination" value="{{ ride.destination}}" required>
+  </div>
+  <div class="form-group">
+   number of passenger:  <input type="number" name="num_of_passenger"  value="{{ ride.num_of_passenger}}" required>
+ </div>
+ <div class="form-group">
+  Date: <input type="date" name="date" value="{{ ride.get_date_str }}">
+ </div>
+ <div class="form-group">
+   Time: <input type="time" name="time" value="{{ ride.get_time_str }}">
+ </div>
+ <div class="form-group">
+  {% if ride.ifShared %}
+  if can be shared: <input type="checkbox" name="ifShared" value='True' checked>
+  <ul>
+   {% for sharers in ride.sharer.all %}
+   <li> {{ sharers.name }} </li>
+   {% endfor %}
+ </ul>
+ {% else %}
+ if can be shared: <input type="checkbox" name="ifShared" value='False'>
+ {% endif %}
+</div>
+
+<div class="form-group">
+  ride status: {{ ride.status}}
+</div>
+<div>
+  special information: <input type="text" name="spec_ride_req" value="{{ ride.spec_ride_req}}">
+</div>
+<div class="form-group">
+  <button type="submit">save</button>
+</div>
+</form>
+
+{% else %}
+<ul>
+ <li> Owner: {{ ride.owner.name }} </li>
+ <li> Destination: {{ ride.destination }} </li>
+ <li> Date: {{ ride.date }} </li>
+ <li> Time: {{ ride.time }} </li>
+ <li> Vehicle Type: {{ ride.vehicle_type }} </li>
+ <li> number of passenger: {{ ride.num_of_passenger }} </li>
+ <li> special information: {{ ride.spec_ride_req}}</li>
+ <li>ride status: {{ ride.status}}</li>
+ <li> Driver: {{ ride.driver.name }} </li>
+ <li> Can this ride be shared:
+   {% if ride.ifShared %}
+   yes
+   <li> Sharers: </li>
+   <ul>
+     {% for sharers in ride.sharer.all %}
+     <li> {{ sharers.name }} </li>
+     {% endfor %}
+   </ul>
+   {% else %}
+   no
+   {% endif %}
+ </li>
+</ul>
+{% endif %}
+<a href="{% url 'shareddriver:homePage' user.id %}">go back to home page</a>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,43 @@
+<h1>Register your information as a driver~</h1>
+<ul>
+
+    <form action="/shareddriver/{{ user_id }}/driver_Register_Info/"  method="post">
+    {% csrf_token %}
+        <li> Username: {{ user.username }} </li>
+        <li> email: {{ user.email }} </li>
+    <div>
+     ifDriver:
+    <select name="ifDriver" required>
+      <option value="True">True</option>
+      <option value="False">False</option>
+    </select>
+  </div>
+
+    <div>
+    Vehicle Type:
+    <select name="vehicle_type" required>
+      <option value="X">X</option>
+      <option value="XL">XL</option>
+      <option value="vip">vip</option>
+      <option value="vvip">vvip</option>
+    </select>
+   </div>
+
+
+    <div>
+        License Number:  <input type="text" name="license_num" value="" required>
+    </div>
+
+    <div>
+        special information: <input type="text" name="spec_veh_info" value="" >
+
+    </div>
+    <div>
+        <button type="submit">Save</button>
+    </div>
+   
+    </form>
+    <a href="{% url 'shareddriver:homePage' user_id %}">go back to home page</a>
+    </ul>
+
+

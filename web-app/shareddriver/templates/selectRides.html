@@ -1,0 +1,36 @@
+<h1>Select your rides</h1>
+
+{% for ride in myRide %}
+
+<div>
+	<ul>
+		<li> Owner: {{ ride.owner.username }} </li>
+		<li> Destination: {{ ride.destination }} </li>
+		<li> Date and time: {{ ride.date_time }} </li>
+<!-- 		<li> Date: {{ ride.date }} </li>
+		<li> Time: {{ ride.time }} </li> -->
+		<li> Vehicle Type: {{ ride.vehicle_type }} </li>
+		<li> number of passenger: {{ ride.num_of_passenger }} </li>
+		<li>vehicle's capacity: {{ ride.vehicle_capacity}}</li>
+		<li> special information: {{ ride.spec_ride_req}}</li>
+		<li>ride status: {{ ride.status}}</li>
+		<li> Driver: {{ ride.driver.username }} </li>
+		<li> Can this ride be shared:
+			{% if ride.ifShared %} 
+			yes
+			<li> Sharers: </li>
+			<ul>
+				{% for sharers in ride.sharer.all %}
+				<li> {{ sharers.username }} </li>
+				{% endfor %}
+			</ul>
+			{% else %}
+			no
+			{% endif %}
+		</li>
+	</ul>
+	<a href="{% url 'shareddriver:ride_infm' user.id ride.id %}">check/edit details</a>
+
+	{% endfor %}
+ 
+ <a href="{% url 'shareddriver:homePage' user.id %}">go back to home page</a>

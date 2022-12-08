@@ -1,0 +1,37 @@
+<h1>Please fill in the ride information</h1>
+
+
+<form action="{% url 'shareddriver:requestRide' user.id %}" method="post">
+{% csrf_token %}
+
+  <div>
+    Vehicle Type:  
+    <select name="vehicle_type" required>
+      <option value="X">X</option>
+      <option value="XL">XL</option>
+      <option value="vip">vip</option>
+      <option value="vvip">vvip</option>
+    </select>
+  </div> 
+  <div>
+    Destination:  <input type="text" name="destination" required>
+  </div>
+  <div>
+   number of passenger:  <input type="number" name="num_of_passenger" required>
+  </div>
+  <div>
+  if can be shared: <input type="checkbox" name="ifShared"  value='True'>
+  </div>
+   <div>
+   Date and Time: <input type="datetime-local" name="date_time" required>
+  </div>
+  <div>
+  special information:  <input type="text" name="spec_ride_req">
+  </div>
+  <div>
+    <button type="submit">submit</button>
+  </div>
+
+
+</form>
+<a href="{% url 'shareddriver:homePage' user.id %}">go back to home page</a>

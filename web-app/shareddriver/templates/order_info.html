@@ -1,0 +1,50 @@
+<h1>This is your current order information</h1>
+
+
+<form action="{% url 'shareddriver:myCurrentOrder' user.id ride_id %}" method="post">
+{% csrf_token %}
+   <div>
+       Driver: {{ ride.driver.username }}
+   </div>
+   <div>
+       Owner: {{ride.owner.username}}
+  <div>
+    Destination: {{ ride.destination}}
+  </div>
+  <div>
+   number of passenger: {{ ride.num_of_passenger}}
+  </div>
+  <div>
+  {% if ride.ifShared %}
+  if can be shared: {{'True'}}
+  &emsp;&emsp;<ul>sharer:
+      {% for sharers in ride.sharer.all %}
+      <li> {{ sharers.username }} </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+  if can be shared: {{'False'}}
+  {% endif %}
+  </div>
+  <div class="form-group">
+    Date and Time:{{ ride.get_date_time_str}}
+  </div>
+
+    <div>
+    ride status: {{ ride.status}}
+  </div>
+  <div>
+  special information: {{ ride.spec_ride_req}}
+  </div>
+  <div>
+    <button type="submit">Complete</button>
+  </div>
+
+</form>
+<li><a href="{% url 'shareddriver:driverReg' user_id%}"> Back to Driver HomePage</a></li>
+
+
+
+
+
+

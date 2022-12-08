@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+SignIn
+{% endblock %}
+
+
+
+{% block main %}
+
+    <!DOCTYPE html>
+<html lang="en">
+
+
+
+<body>
+         <form action="/users/login/" method="post">
+
+                   <input type="hidden" name="time" id="time">
+
+                        {% csrf_token %}
+                    <p>
+                        <label>Username: </label>  <input type="text" id="username" name="username" value="">
+                    </p>
+                    <p>
+                        <label>PassWord: </label> <input type="password" id="pwd" name="pwd" class="login-password" >
+
+                    </p>
+                        {{message}}
+
+                    <p>
+                         <button class="login-btn" style="color: hotpink;text-decoration: none;cursor: pointer">SignIn</button>
+                    </p>
+
+
+         </form>
+
+</body>
+</html>
+
+
+
+
+{% endblock %}
+
+

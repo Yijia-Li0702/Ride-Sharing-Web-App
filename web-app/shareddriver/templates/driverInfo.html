@@ -1,0 +1,40 @@
+<h1>This is your information as a driver~</h1>
+<ul>
+   <li> Username: {{ user.username }} </li>
+   <li> email: {{ user.email }} </li>
+    <form action="/shareddriver/{{ user_id }}/driverReg/personalInfo/"  method="post">
+    {% csrf_token %}
+    <div>
+        ifDriver : <input type="text" name="ifDriver" value="{{ user.ifDriver }}">
+
+     </div>
+<!--      <div>
+        Vehicle Type:  <input type="text" name="vehicle_type" value="{{vehicle.vehicle_type}} "required>
+    </div> -->
+    <div>
+    Vehicle Type:  {{ vehicle.vehicle_type}} 
+    <select name="vehicle_type" required>
+      <option value="X">X</option>
+      <option value="XL">XL</option>
+      <option value="vip">vip</option>
+      <option value="vvip">vvip</option>
+    </select>
+  </div> 
+<!--      <div>
+        Max number of passenger:  <input type="number" name="max_num"  value="{{ vehicle.max_num}}" required>
+    </div> -->
+    <div>
+        License Number:  <input type="text" name="license_num" value="{{ vehicle.license_num}}" required>
+    </div>
+
+    <div>
+        special information: <input type="text" name="spec_veh_info" value="{{ vehicle.spec_veh_info}}">
+    </div>
+    <div>
+        <button type="submit">Edit</button>
+    </div>
+    </form>
+    </ul>
+    <li><a href="{% url 'shareddriver:driverReg' user_id%}"> Back to Driver HomePage</a></li>
+
+

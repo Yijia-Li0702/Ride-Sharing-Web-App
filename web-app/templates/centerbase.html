@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>{%block title %}{% endblock %}</title>
+
+    {% block headerjs %}
+    {% endblock %}
+</head>
+<h1> Enjoy being a Driver ~</h1>
+<body>
+
+
+    <li><a href="/shareddriver/{{ user_id }}/myOrder"> MyOrder~</a></li>
+    <li><a href="{% url 'shareddriver:personalInfo' user_id %}"> Personal_Info</a></li>
+    <li><a href="/users/logout/"> Logout </a></li>
+
+
+
+    {% block main %}
+    {% endblock %}
+    {% block footerjs %}
+    {% endblock %}
+
+</body>
+</html>

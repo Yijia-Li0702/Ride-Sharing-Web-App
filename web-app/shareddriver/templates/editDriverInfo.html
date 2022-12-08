@@ -1,0 +1,51 @@
+<h1>Edit your driver information</h1>
+
+
+<form action="{% url 'shareddriver:editDriverInfo' user.id %}" method="post">
+{% csrf_token %}
+{% if ifDriver %}
+  <div>
+    Vehicle Type:  {{ ride.vehicle_type}}  
+    <select name="vehicle_type" required>
+      <option value="X">X</option>
+      <option value="XL">XL</option>
+      <option value="vip">vip</option>
+      <option value="vvip">vvip</option>
+    </select>
+  </div> 
+  <div>
+    License Number:  <input type="text" name="license_num" value="{{ vehicle.license_num}}" required>
+  </div>
+  <div>
+   Max number of passenger: {{ vehicle.max_num}}
+  </div>
+  <div>
+  special information: <input type="text" name="spec_veh_info" value="{{ vehicle.spec_veh_info}}" required>
+  </div>
+  <div>
+    <button type="submit">save</button>
+  </div>
+{% else %}
+  <div>
+  Vehicle Type:  {{ ride.vehicle_type}}  
+    <select name="vehicle_type" required>
+      <option value="X">X</option>
+      <option value="XL">XL</option>
+      <option value="vip">vip</option>
+      <option value="vvip">vvip</option>
+    </select>
+  </div> 
+  <div>
+    License Number:  <input type="text" name="license_num" required>
+  </div>
+  <div>
+  special information:  <input type="text" name="spec_veh_info" required>
+  </div>
+  <div>
+    <button type="submit">submit</button>
+  </div>
+
+{% endif %}
+
+</form>
+<a href="{% url 'shareddriver:homePage' user.id %}">go back to home page</a>

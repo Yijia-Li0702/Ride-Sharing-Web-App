@@ -1,0 +1,23 @@
+<h1>My order~</h1>
+
+ <form action="{% url 'shareddriver:myOrder' user_id%}" method="post">
+         {% csrf_token %}
+            {% for ride in ride_list %}
+                <p> {{ forloop.counter}} <label>Ride ID:</label>{{ ride.id }}&emsp;&emsp; <label> Ride Destination:</label>&emsp;{{ ride.destination }}&emsp;&emsp;
+                    <label> Arrival Time:</label>&emsp;{{ ride.date_time}}&emsp;&emsp;
+                    <label> Ride Status: </label>&emsp;{{ ride.status}}&emsp;&emsp;
+                        {% ifequal ride.status "Confirm" %}
+                         <a href="/shareddriver/{{user_id}}/{{ride.id}}/myCurrentOrder/"> Details</a>&emsp;&emsp;
+                        <a href="/shareddriver/{{ user_id }}/{{ ride.id }}/orderComplete/">Complete</a>
+                        {% endifequal %}
+                </p >
+            {% endfor %}
+            <li><a href="{% url 'shareddriver:driverReg' user_id%}"> Back to Driver HomePage</a></li>
+   
+ </form>
+
+
+
+
+
+

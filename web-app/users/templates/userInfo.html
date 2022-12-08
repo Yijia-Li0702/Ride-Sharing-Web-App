@@ -1,0 +1,25 @@
+<h1>This is your information as a User~</h1>
+<ul>
+
+    <form action="/users/{{ user_id }}/userInfo/"  method="post">
+    {% csrf_token %}
+
+
+    <div>
+       Username:  <input type="text" name="username" value="{{ user.username}}" required>
+    </div>
+
+    <div>
+       Password: <input type="text" name="pwd" value="{{user.pwd}}" required>
+    </div>
+
+    <div>
+       Email: <input type="text" name="email" value="{{user.email}}" required>
+    </div>
+
+    <div>
+        <button type="submit">Edit</button>
+    </div>
+    </form>
+    <li><a href="/shareddriver/{{ user_id }}/"> Back to HomePage</a></li>
+    </ul>

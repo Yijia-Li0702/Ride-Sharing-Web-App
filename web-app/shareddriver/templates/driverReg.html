@@ -1,0 +1,45 @@
+{% extends 'centerbase.html' %}
+<h1>Welcome to Driver Page</h1>
+
+{% block main %}
+     <form action="{% url 'shareddriver:driverReg' user_id%}" method="post">
+         {% csrf_token %}
+
+                        {% csrf_token %}
+                        <p>
+                            <label> Role : Driver</label>
+                        </p>
+<!-- 
+                        <p>
+                            <label for="up">Vehicle Type: </label> <input type="text" id="type" name="type" value="" class="login-password"><span style="color:red;" id="pSpan"></span>
+                        </p> -->
+ <!--                           <div class="form-group">
+                                Vehicle Type: 
+                                <select name="vehicle_type" required>
+                                
+                                     <option value="X">X</option>
+                                <option value="XL">XL</option>
+                                 <option value="vip">vip</option>
+                                <option value="vvip">vvip</option>
+                                </select>
+                            </div>-->
+
+<!--                         <p>
+                            <label for="um"> Maximum Passangers: </label> <input type="text" id="maxnum" name="maxnum"><span id="mSpan"></span>
+                        </p> -->
+<!--                        <p>
+                            <label for="uo"> Special_Info:</label><input type="text" id="append" name="append"><span id="oSpan"></span>
+                        </p>
+                        <p>-->
+                            &emsp;&emsp;&emsp;&emsp;<button class="login-btn" style="color:pink;text-decoration:none;cursor:pointer"> Search </button>
+                        </p>
+
+         {% for ride in ride_list %}
+             <p> {{ forloop.counter}} <label>Ride ID:</label> {{ ride.id }}&emsp;<label> Ride Destination:</label>{{ ride.destination }}&emsp;
+                 <label> Arrival Time:</label>{{ ride.date_time}}&emsp;
+                 <a href="/shareddriver/{{ user_id }}/{{ ride.id }}/myCurrentOrder/">Confirm</a> </p>
+         {% endfor %}
+
+     </form>
+<a href="{% url 'shareddriver:homePage' user_id %}">go back to home page</a>
+{% endblock %}
